@@ -1,0 +1,22 @@
+{
+  "name": "vee-testus",
+  "version": "1.0.0",
+  "description": "A Test Kit for Vee",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/veeui/vee-testus.git"
+  },
+  "keywords": [
+    "testus"
+  ],
+  "author": "李恒谦",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/veeui/vee-testus/issues"
+  },
+  "homepage": "https://github.com/veeui/vee-testus#readme"
+}
