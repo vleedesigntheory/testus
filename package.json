@@ -4,7 +4,9 @@
   "description": "A Test Kit for Vee",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node scripts/dev.js",
+    "prod": "node scripts/prod.js",
+    "release": "node scripts/release.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +20,20 @@
   "bugs": {
     "url": "https://github.com/veeui/vee-testus/issues"
   },
-  "homepage": "https://github.com/veeui/vee-testus#readme"
+  "homepage": "https://github.com/veeui/vee-testus#readme",
+  "dependencies": {
+    "@types/doctrine": "^0.0.5",
+    "doctrine": "^3.0.0",
+    "semver": "^7.3.5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@types/rollup": "^0.54.0",
+    "@types/typescript": "^2.0.0",
+    "rollup": "^2.70.1",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "typescript": "^4.6.2"
+  }
 }
