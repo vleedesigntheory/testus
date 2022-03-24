@@ -1,6 +1,6 @@
 {
   "name": "@testus/plugin-jest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "@testus/plugin-jest",
   "main": "dist/testus-plugin-jest.cjs.js",
   "module": "dist/testus-plugin-jest.esm-bundler.js",

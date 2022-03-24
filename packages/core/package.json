@@ -1,6 +1,6 @@
 {
   "name": "@testus/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "@testus/core",
   "main": "dist/core.cjs.js",
   "module": "dist/core.esm-bundler.js",

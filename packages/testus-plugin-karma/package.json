@@ -1,6 +1,6 @@
 {
   "name": "@testus/plugin-karma",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "@testus/plugin-karma",
   "main": "dist/testus-plugin-karma.cjs.js",
   "module": "dist/testus-plugin-karma.esm-bundler.js",

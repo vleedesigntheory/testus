@@ -1,6 +1,6 @@
 {
   "name": "@testus/plugin-jasmine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "@testus/plugin-jasmine",
   "main": "dist/testus-plugin-jasmine.cjs.js",
   "module": "dist/testus-plugin-jasmine.esm-bundler.js",
