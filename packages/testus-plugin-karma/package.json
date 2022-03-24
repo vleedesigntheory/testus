@@ -1,0 +1,27 @@
+{
+  "name": "@testus/plugin-karma",
+  "version": "1.0.0",
+  "description": "@testus/plugin-karma",
+  "main": "dist/testus-plugin-karma.cjs.js",
+  "module": "dist/testus-plugin-karma.esm-bundler.js",
+  "unpkg": "dist/testus-plugin-karma.global.js",
+  "buildOptions": {
+    "name": "TestusPluginKarma",
+    "formats": [
+      "esm-bundler",
+      "cjs",
+      "global"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vee-testus/testus.git",
+    "directory": "packages/testus-plugin-karma"
+  },
+  "keywords": [
+    "testus",
+    "karma"
+  ],
+  "author": "李恒谦",
+  "license": "MIT"
+}
