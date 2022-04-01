@@ -1,10 +1,14 @@
-# vee-testus
+<p align="center"><a href="https://github.com/veeui/vee-testus#readme" target="_blank"><img src="./docs/assets/testus.png" width="100"></a></p>
 
-A Test Kit for Vee
+<h2 align="center">TestUS</h2>
+
+<hr/>
 
 ## Introduction
 
-[testus]() is a Test Kit in Front End, which can help Developers to TEST your own projects. We concern multiple kinds of tests, such as Unit Test, Integration Test and E2E Test (UI Test), which can cover most of your test case for Front End.
+> A Test Kit for Vee
+
+[testus](https://github.com/veeui/vee-testus#readme) is a Test Kit in Front End, which can help Developers to TEST your own projects. We concern multiple kinds of tests, such as Unit Test, Integration Test and E2E Test (UI Test), which can cover most of your test case for Front End.
 ## Feature
 
 1. Support parse notation to get what you wanna test;
