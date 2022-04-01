@@ -1,1 +1,9 @@
-console.log('这是prod配置')
+const { modifyEnv } = require('./utils');
+
+exports.prod = () => {
+    const content = 
+`{
+    "isDev": false
+}`
+    modifyEnv(content, '修改为生产环境')
+}
