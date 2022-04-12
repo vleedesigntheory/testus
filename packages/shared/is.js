@@ -1,0 +1,1 @@
+exports.isNil = obj => JSON.stringify(obj) === '{}' 
