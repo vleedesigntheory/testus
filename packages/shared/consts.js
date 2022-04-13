@@ -1,10 +1,10 @@
-export.TEST_LIBRARIES = [
+exports.TEST_LIBRARIES = [
     'jest', 
     'jasmine', 
     'karma'
 ];
 
-export.DEFAULT_TESTUSCONFIG = {
+exports.DEFAULT_TESTUSCONFIG = {
     entry: {
         dirPath: 'src', // 所需监听的文件夹路径，相对于根目录
         extFiles: ['js'], // 所需监听的文件类型

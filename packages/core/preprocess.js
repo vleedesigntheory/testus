@@ -33,7 +33,7 @@ function processEntry(entry) {
 
 function processOutput(output) {
     if(output.dirPath) {
-        if(fs.existsSync(`${rootDir}/${out.dirPath}`)) {
+        if(fs.existsSync(`${rootDir}/${output.dirPath}`)) {
             error(`${output.dirPath}目录已存在，请换一个测试文件导出名称或者删除${output.dirPath}`)
         }
     }
@@ -49,11 +49,102 @@ function processOptions(options) {
 }
 
 function processPlugins(plugins) {
-    if(options.plugins) {
+    if(plugins) {
         
     }
 }
 
 module.exports = (...args) => {
-    
+    console.log('preprocess', args);
+    const DSL = {
+        tree: [
+            {
+                name: 'a',
+                type: 'directory',
+                content: undefined,
+                ext: undefined,
+                children: [
+                    {
+                        name: '1',
+                        type: 'file',
+                        ext: 'js',
+                        content: '',
+                        children: null
+                    }
+                ]
+            },
+            {
+                name: 'b',
+                type: 'directory',
+                content: undefined,
+                ext: undefined,
+                children: [
+                    {
+                        name: 'c',
+                        type: 'directory',
+                        content: undefined,
+                        ext: undefined,
+                        children: [
+                            {
+                                name: '1',
+                                type: 'file',
+                                ext: 'js',
+                                content: '',
+                                children: null
+                            }
+                        ]
+                    },
+                    {
+                        name: 'd',
+                        type: 'directory',
+                        content: undefined,
+                        ext: undefined,
+                        children: [
+                            {
+                                name: 'e',
+                                type: 'directory',
+                                content: undefined,
+                                ext: undefined,
+                                children: [
+                                    {
+                                        name: '4',
+                                        type: 'file',
+                                        ext: 'js',
+                                        content: '',
+                                        children: null
+                                    },
+                                    {
+                                        name: '5',
+                                        type: 'file',
+                                        ext: 'js',
+                                        content: '',
+                                        children: null
+                                    }
+                                ]
+                            },
+                            {
+                                name: '3',
+                                type: 'file',
+                                content: '',
+                                ext: 'js',
+                                children: null
+                            }
+                        ]
+                    },
+                ]
+            },
+        ],
+        originName: 'src',
+        targetName: 'tests',
+        middleName: 'spec',
+        libName: 'jest',
+        options: {
+
+        },
+        middlewares: [
+
+        ]
+    };
+
+    return DSL;
 }

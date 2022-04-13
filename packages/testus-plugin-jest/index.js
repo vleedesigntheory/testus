@@ -1,7 +1,5 @@
 console.log('test plugin')
 
-class TestusPluginJest {
-
+module.exports = () => {
+    
 }
-
-module.exports = TestusPluginJest;
