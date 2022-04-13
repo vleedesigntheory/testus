@@ -2,7 +2,8 @@
     'is',
     'log',
     'utils',
-    'consts',
+    'constants',
+    'reg'
 ].forEach(lib => {
     Object.assign(exports, require(`./${lib}`))
 })

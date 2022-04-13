@@ -1,0 +1,1 @@
+exports.EXT_REG = /\.(\w+)$/;

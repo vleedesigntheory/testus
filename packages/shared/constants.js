@@ -8,7 +8,7 @@ exports.DEFAULT_TESTUSCONFIG = {
     entry: {
         dirPath: 'src', // 所需监听的文件夹路径，相对于根目录
         extFiles: ['js'], // 所需监听的文件类型
-        excludes: ['src/core'], // 不需要的文件或文件夹
+        excludes: [], // 不需要的文件或文件夹
     },
     output: {
         dirPath: 'tests', // 导出的测试文件目录，默认为根目录下的tests文件夹下，相对于根目录
