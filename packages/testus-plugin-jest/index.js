@@ -1,5 +1,5 @@
 console.log('test plugin')
 
-module.exports = () => {
-    
-}
+
+
+module.exports = testusPluginJest;

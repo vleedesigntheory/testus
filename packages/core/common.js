@@ -131,3 +131,23 @@ exports.toTree = ( dirPath, originName, extFiles, excludes ) => {
     
     return recursive(dirPath);
 }
+
+exports.goTree = ( tree, originName, fn )  => {
+    console.log('tree', tree);
+    // 深度优先遍历
+    const dfs = ( tree, p ) => {
+        tree.forEach(t => {
+            if(t.children) {
+                console.log('directory', path.join(p, t.name))
+                dfs(t.children, path.join(p, t.name))
+            } else {
+                console.log('file', path.join(p, t.name))
+                t = fn(path.join(p, t.name), t)
+            }
+        })
+
+        return tree;
+    }
+
+    return dfs(tree, originName)
+}
