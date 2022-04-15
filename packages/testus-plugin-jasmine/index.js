@@ -1,5 +1,7 @@
 console.log('jasmine plugin')
 
-module.exports = () => {
-    
+const path = require('path');
+
+exports.jasmineTemplateFn = ( args ) => {
+
 }

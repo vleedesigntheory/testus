@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { EXT_REG } = require('../shared');
+const { EXT_REG, compose, isFunction, error } = require('../shared');
 
 /**
  DSL = {
@@ -96,7 +96,7 @@ const { EXT_REG } = require('../shared');
  */
 
 exports.toTree = ( dirPath, originName, extFiles, excludes ) => {
-    console.log('dirPath', dirPath);
+    // console.log('dirPath', dirPath);
 
     const recursive = (p) => {
         const r = [];
@@ -132,17 +132,17 @@ exports.toTree = ( dirPath, originName, extFiles, excludes ) => {
     return recursive(dirPath);
 }
 
-exports.goTree = ( tree, originName, fn )  => {
-    console.log('tree', tree);
+exports.goTree = ( tree, originName, fn, args )  => {
+    // console.log('tree', tree);
     // 深度优先遍历
     const dfs = ( tree, p ) => {
         tree.forEach(t => {
             if(t.children) {
-                console.log('directory', path.join(p, t.name))
+                // console.log('directory', path.join(p, t.name))
                 dfs(t.children, path.join(p, t.name))
             } else {
-                console.log('file', path.join(p, t.name))
-                t = fn(path.join(p, t.name), t)
+                // console.log('file', path.join(p, t.name))
+                t = fn(path.join(p, t.name), t, args)
             }
         })
 
@@ -150,4 +150,40 @@ exports.goTree = ( tree, originName, fn )  => {
     }
 
     return dfs(tree, originName)
+}
+
+exports.transTree = ( doctrine, middlewares, templateFn, relativePath ) => {
+    // console.log('doctrine', doctrine);
+    const next = (ctx) => {
+        // console.log('ctx', ctx);
+        if( ctx.tags.length > 0 ) {
+            const positions = [];
+            ctx.tags.forEach((item, index) => {
+                if( item.title == 'testus' ) {
+                    positions.push(index)
+                }
+            });
+            // console.log('positions', positions);
+            if(positions.length % 2 == 0) {
+                for(let i=0; i< positions.length-1; i+=2) {
+                    return templateFn(ctx.tags.slice(positions[i]+1,positions[i+1]), relativePath)
+                }
+            } else {
+                const errorMsg = `注释不闭合，请重新填写`;
+                error(errorMsg);
+                throw new Error(errorMsg)
+            }
+            
+        }
+    }
+    let r = '';
+    middlewares.forEach( middleware => {
+        if(isFunction(middleware)) {
+            console.log('safdsadf', middleware(doctrine, next))
+            r = middleware(doctrine, next) 
+        } else {
+            error(`${middleware}不是一个函数`)
+        }
+    });
+    return r;
 }

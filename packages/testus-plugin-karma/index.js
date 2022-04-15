@@ -1,5 +1,7 @@
 console.log('karma plugin')
 
-module.exports = () => {
-    
+const path = require('path');
+
+exports.karmaTemplateFn = ( args ) => {
+
 }

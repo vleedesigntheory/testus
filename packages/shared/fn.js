@@ -6,3 +6,9 @@ exports.curry = ( fn,arr=[] ) => (...args) => (
         : curry(fn,arg)
 )([...arr,...args]);
 
+// exports.generator = *(args) => {
+//     for( let i=0; i < args.length; i++ ) {
+//         yield args[i];
+//     }
+// }
+
