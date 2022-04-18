@@ -157,24 +157,6 @@ exports.transTree = ( doctrine, middlewares, templateFn, relativePath ) => {
     const next = (ctx) => {
         // console.log('ctx', ctx);
         if( ctx.tags.length > 0 ) {
-            // 对导出内容进行判断限定
-            const end = ctx.tags.filter(f => f.title == 'end' );
-
-            if( end.length > 0 ) {
-                const out = end.pop();
-                // console.log('out', out.description)
-                if( out.description.indexOf('exports') == '-1' ) {
-                    warn(`目前仅支持Common JS模块导出`)
-                } else {
-                    if(out.description.indexOf('module.exports') != '-1') {
-                        info(`使用module.exports请将内容放置在{}中`)
-                    }
-                }
-            } else {
-                error(`未导出所需测试的内容`);
-                throw new Error(`未导出所需测试的内容`)
-            }
-
             // 过滤@testus中的内容
             const positions = [];
             ctx.tags.forEach((item, index) => {
@@ -185,6 +167,23 @@ exports.transTree = ( doctrine, middlewares, templateFn, relativePath ) => {
             // console.log('positions', positions);
             if(positions.length % 2 == 0) {
                 for(let i=0; i< positions.length-1; i+=2) {
+                    // 对导出内容进行判断限定
+                    const end = ctx.tags.filter(f => f.title == 'end' );
+                    if( end.length > 0 ) {
+                        const out = end.pop();
+                        // console.log('out', out.description)
+                        if( out.description.indexOf('exports') == '-1' ) {
+                            warn(`目前仅支持Common JS模块导出`)
+                        } else {
+                            if(out.description.indexOf('module.exports') != '-1') {
+                                info(`使用module.exports请将内容放置在{}中`)
+                            }
+                        }
+                    } else {
+                        error(`未导出所需测试的内容`);
+                        throw new Error(`未导出所需测试的内容`)
+                    }
+                    
                     return templateFn(ctx.tags.slice(positions[i]+1,positions[i+1]), relativePath)
                 }
             } else {
