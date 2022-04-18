@@ -204,8 +204,8 @@ exports.transTree = ( doctrine, middlewares, templateFn, relativePath ) => {
                 error(`${middleware}不是一个函数`)
             }
         });
-    } else {
-        console.log('next(doctrine)', next(doctrine));
+    } else  {
+        // console.log('next(doctrine)', next(doctrine));
         r = next(doctrine)
     }
     
