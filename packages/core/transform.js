@@ -109,7 +109,7 @@ const { jestTemplateFn, jasmineTemplateFn, karmaTemplateFn } = require('../testu
 
 
 function handleContent(p, item, { middlewares,  libName, originName, targetName }) {
-    console.log('相对路径', p)
+    // console.log('相对路径', p)
     let templateFn = jestTemplateFn;
     switch (libName) {
         case 'jest':
@@ -125,7 +125,7 @@ function handleContent(p, item, { middlewares,  libName, originName, targetName 
             break;
     }
     const reg = new RegExp(`${originName}`);
-    console.log('reg', reg, p.replace(reg, targetName))
+    // console.log('reg', reg, p.replace(reg, targetName))
     item.content = transTree(
             doctrine.parse(fs.readFileSync(p, 'utf-8'), {
                 unwrap: true,

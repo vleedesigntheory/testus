@@ -119,7 +119,7 @@ function processPlugins(plugins) {
 }
 
 module.exports = (...options) => {
-    console.log('preprocess', options);
+    // console.log('preprocess', options);
 
     return createDSL(options)
 }

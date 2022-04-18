@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { EXT_REG, compose, isFunction, error } = require('../shared');
+const { EXT_REG, compose, isFunction, error, warn, info } = require('../shared');
 
 /**
  DSL = {
@@ -157,6 +157,25 @@ exports.transTree = ( doctrine, middlewares, templateFn, relativePath ) => {
     const next = (ctx) => {
         // console.log('ctx', ctx);
         if( ctx.tags.length > 0 ) {
+            // 对导出内容进行判断限定
+            const end = ctx.tags.filter(f => f.title == 'end' );
+
+            if( end.length > 0 ) {
+                const out = end.pop();
+                // console.log('out', out.description)
+                if( out.description.indexOf('exports') == '-1' ) {
+                    warn(`目前仅支持Common JS模块导出`)
+                } else {
+                    if(out.description.indexOf('module.exports') != '-1') {
+                        info(`使用module.exports请将内容放置在{}中`)
+                    }
+                }
+            } else {
+                error(`未导出所需测试的内容`);
+                throw new Error(`未导出所需测试的内容`)
+            }
+
+            // 过滤@testus中的内容
             const positions = [];
             ctx.tags.forEach((item, index) => {
                 if( item.title == 'testus' ) {
@@ -179,11 +198,39 @@ exports.transTree = ( doctrine, middlewares, templateFn, relativePath ) => {
     let r = '';
     middlewares.forEach( middleware => {
         if(isFunction(middleware)) {
-            console.log('safdsadf', middleware(doctrine, next))
             r = middleware(doctrine, next) 
         } else {
             error(`${middleware}不是一个函数`)
         }
     });
     return r;
+}
+
+exports.genTree = ( tree, targetName, dirPath, middleName ) => {
+    // 过滤名字
+    const filterName = ( name, middleName ) => {
+        const r = name.split('.');
+
+        r.splice(r.length - 1,0, middleName)    
+
+        return r.join('.')
+    }
+
+    const dfs = ( tree, p ) => {
+        tree.forEach(t => {
+            if(t.children) {
+                // console.log('directory', path.join(p, t.name))
+                fs.mkdirSync(path.join(p, t.name))
+                // done(`目录路径下${p}目标文件夹${t.name}创建完成`)
+                dfs(t.children, path.join(p, t.name))
+            } else {
+                // console.log('file', path.join(p, t.name))
+                t.content && fs.writeFileSync(path.join(p, filterName(t.name, middleName)), t.content)
+            }
+        })
+
+        return tree;
+    }
+
+    return dfs(tree, path.join(dirPath, targetName))
 }

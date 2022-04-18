@@ -3,7 +3,7 @@ console.log('jest plugin')
 const path = require('path');
 
 exports.jestTemplateFn = ( args, relativePath ) => {
-    console.log('args', args);
+    // console.log('args', args);
 
     const map = {
         name: '',
