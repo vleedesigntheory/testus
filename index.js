@@ -1,6 +1,4 @@
-const commander = require('commander');
-
-const program = commander.program;
+const { program } = require('commander');
 
 program
     .command('start')
