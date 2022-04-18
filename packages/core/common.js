@@ -196,13 +196,19 @@ exports.transTree = ( doctrine, middlewares, templateFn, relativePath ) => {
         }
     }
     let r = '';
-    middlewares.forEach( middleware => {
-        if(isFunction(middleware)) {
-            r = middleware(doctrine, next) 
-        } else {
-            error(`${middleware}不是一个函数`)
-        }
-    });
+    if(middlewares.length > 0) {
+        middlewares.forEach( middleware => {
+            if(isFunction(middleware)) {
+                r = middleware(doctrine, next) 
+            } else {
+                error(`${middleware}不是一个函数`)
+            }
+        });
+    } else {
+        console.log('next(doctrine)', next(doctrine));
+        r = next(doctrine)
+    }
+    
     return r;
 }
 

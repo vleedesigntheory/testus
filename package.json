@@ -1,6 +1,6 @@
 {
   "name": "testus",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A Test Kit for Vee",
   "main": "index.js",
   "directories": {
@@ -22,13 +22,11 @@
     "url": "https://github.com/vee-testus/testus/issues"
   },
   "homepage": "https://github.com/vee-testus/testus#readme",
-  "devDependencies": {
-    "@types/chalk": "^2.2.0",
-    "chalk": "^4.1.2"
-  },
   "dependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/commander": "^2.12.2",
     "@types/doctrine": "^0.0.5",
+    "chalk": "^4.1.2",
     "commander": "^8.3.0",
     "doctrine": "^3.0.0"
   }
