@@ -4,105 +4,17 @@ const path = require('path');
 const { EXT_REG, compose, isFunction, error, warn, info } = require('../shared');
 
 /**
- DSL = {
-        tree: [
-            {
-                name: 'a',
-                type: 'directory',
-                content: undefined,
-                ext: undefined,
-                children: [
-                    {
-                        name: '1',
-                        type: 'file',
-                        ext: 'js',
-                        content: '',
-                        children: null
-                    }
-                ]
-            },
-            {
-                name: 'b',
-                type: 'directory',
-                content: undefined,
-                ext: undefined,
-                children: [
-                    {
-                        name: 'c',
-                        type: 'directory',
-                        content: undefined,
-                        ext: undefined,
-                        children: [
-                            {
-                                name: '1',
-                                type: 'file',
-                                ext: 'js',
-                                content: '',
-                                children: null
-                            }
-                        ]
-                    },
-                    {
-                        name: 'd',
-                        type: 'directory',
-                        content: undefined,
-                        ext: undefined,
-                        children: [
-                            {
-                                name: 'e',
-                                type: 'directory',
-                                content: undefined,
-                                ext: undefined,
-                                children: [
-                                    {
-                                        name: '4',
-                                        type: 'file',
-                                        ext: 'js',
-                                        content: '',
-                                        children: null
-                                    },
-                                    {
-                                        name: '5',
-                                        type: 'file',
-                                        ext: 'js',
-                                        content: '',
-                                        children: null
-                                    }
-                                ]
-                            },
-                            {
-                                name: '3',
-                                type: 'file',
-                                content: '',
-                                ext: 'js',
-                                children: null
-                            }
-                        ]
-                    },
-                ]
-            },
-        ],
-        originName: 'src',
-        targetName: 'tests',
-        middleName: 'spec',
-        libName: 'jest',
-        options: {
-
-        },
-        middlewares: [
-
-        ]
-    };
+ * 建立树的基本数据结构
  */
-
 exports.toTree = ( dirPath, originName, extFiles, excludes ) => {
-    // console.log('dirPath', dirPath);
+    // 绝对路径
+    const _excludes = excludes.map(m => path.join(process.cwd(), '.', m));
 
     const recursive = (p) => {
         const r = [];
         fs.readdirSync(p, 'utf-8').forEach(item => {
             if(fs.statSync(path.join(p, item)).isDirectory()) {
-                if(!excludes.includes(path.join(p, item))) { 
+                if(!_excludes.includes(path.join(p, item))) { 
                     const obj = {
                         name: item,
                         type: 'directory',
@@ -114,7 +26,7 @@ exports.toTree = ( dirPath, originName, extFiles, excludes ) => {
                     r.push(obj);
                 }
             } else {
-                if(!excludes.includes(path.join(p, item))) {
+                if(!_excludes.includes(path.join(p, item))) {
                     r.push({
                         name: item,
                         type: 'file',
@@ -132,16 +44,16 @@ exports.toTree = ( dirPath, originName, extFiles, excludes ) => {
     return recursive(dirPath);
 }
 
+/**
+ * 对树进行遍历并进行相关的一些函数操作
+ */
 exports.goTree = ( tree, originName, fn, args )  => {
-    // console.log('tree', tree);
     // 深度优先遍历
     const dfs = ( tree, p ) => {
         tree.forEach(t => {
             if(t.children) {
-                // console.log('directory', path.join(p, t.name))
                 dfs(t.children, path.join(p, t.name))
             } else {
-                // console.log('file', path.join(p, t.name))
                 t = fn(path.join(p, t.name), t, args)
             }
         })
@@ -152,10 +64,11 @@ exports.goTree = ( tree, originName, fn, args )  => {
     return dfs(tree, originName)
 }
 
+/**
+ * 对树进行相关数据结构的转化
+ */
 exports.transTree = ( doctrine, middlewares, templateFn, relativePath ) => {
-    // console.log('doctrine', doctrine);
     const next = (ctx) => {
-        // console.log('ctx', ctx);
         if( ctx.tags.length > 0 ) {
             // 过滤@testus中的内容
             const positions = [];
@@ -164,14 +77,12 @@ exports.transTree = ( doctrine, middlewares, templateFn, relativePath ) => {
                     positions.push(index)
                 }
             });
-            // console.log('positions', positions);
             if(positions.length % 2 == 0) {
                 for(let i=0; i< positions.length-1; i+=2) {
                     // 对导出内容进行判断限定
                     const end = ctx.tags.filter(f => f.title == 'end' );
                     if( end.length > 0 ) {
                         const out = end.pop();
-                        // console.log('out', out.description)
                         if( out.description.indexOf('exports') == '-1' ) {
                             warn(`目前仅支持Common JS模块导出`)
                         } else {
@@ -204,13 +115,15 @@ exports.transTree = ( doctrine, middlewares, templateFn, relativePath ) => {
             }
         });
     } else  {
-        // console.log('next(doctrine)', next(doctrine));
         r = next(doctrine)
     }
     
     return r;
 }
 
+/**
+ * 基于树的数据结构生成相应的内容
+ */
 exports.genTree = ( tree, targetName, dirPath, middleName ) => {
     // 过滤名字
     const filterName = ( name, middleName ) => {
@@ -224,12 +137,9 @@ exports.genTree = ( tree, targetName, dirPath, middleName ) => {
     const dfs = ( tree, p ) => {
         tree.forEach(t => {
             if(t.children) {
-                // console.log('directory', path.join(p, t.name))
                 fs.mkdirSync(path.join(p, t.name))
-                // done(`目录路径下${p}目标文件夹${t.name}创建完成`)
                 dfs(t.children, path.join(p, t.name))
             } else {
-                // console.log('file', path.join(p, t.name))
                 t.content && fs.writeFileSync(path.join(p, filterName(t.name, middleName)), t.content)
             }
         })

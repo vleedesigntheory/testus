@@ -53,14 +53,12 @@ function createKarmaOptions(options) {
 }
 
 module.exports = (args) => {
-    console.log('generate', args);
     // 生成批量文件
     if( fs.existsSync( path.join(path.resolve(process.cwd(), '.'), args.targetName) ) ) {
         error(`${args.targetName}文件目录已存在，请换一个测试文件导出名称或者删除${args.targetName}后再进行操作`)
         throw new Error(`${args.targetName}文件目录已存在，请换一个测试文件导出名称或者删除${args.targetName}后再进行操作`)
     } else {
         fs.mkdirSync(path.join(path.resolve(process.cwd(), '.'), args.targetName))
-        // done(`根目录下目标文件夹${args.targetName}创建完成`)
         genTree(args.tree, args.targetName, path.resolve(process.cwd(), '.'), args.middleName)
     }
     

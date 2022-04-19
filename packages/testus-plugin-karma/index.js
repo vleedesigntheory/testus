@@ -1,4 +1,6 @@
-console.log('karma plugin')
+const { info } = require('../shared');
+
+info(`karma测试库加载`)
 
 const path = require('path');
 

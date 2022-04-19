@@ -1,4 +1,6 @@
-console.log('jest plugin')
+const { info } = require('../shared');
+
+info(`jest测试库加载`)
 
 const path = require('path');
 

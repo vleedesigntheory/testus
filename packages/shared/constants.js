@@ -6,7 +6,7 @@ exports.TEST_LIBRARIES = [
 
 exports.DEFAULT_TESTUSCONFIG = {
     entry: {
-        dirPath: 'src', // 所需监听的文件夹路径，相对于根目录
+        dirPath: '', // 所需监听的文件夹路径，相对于根目录
         extFiles: ['js'], // 所需监听的文件类型
         excludes: [], // 不需要的文件或文件夹
     },

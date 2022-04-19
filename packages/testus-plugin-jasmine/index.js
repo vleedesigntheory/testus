@@ -1,4 +1,6 @@
-console.log('jasmine plugin')
+const { info } = require('../shared');
+
+info(`jasmine测试库加载`)
 
 const path = require('path');
 
