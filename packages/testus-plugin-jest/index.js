@@ -36,7 +36,7 @@ exports.jestTemplateFn = ( args, relativePath ) => {
 
     return (
 `const {${map.name}} = require('${relativePath}')
-test(`${map.description}`, () => {
+test('${map.description}', () => {
     expect(${map.name}(${map.params.join(',')})).toBe(${map.return})
 })
 `
