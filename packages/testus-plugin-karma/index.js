@@ -34,7 +34,7 @@ exports.karmaTemplateFn = ( args, relativePath ) => {
 
     return (
 `const {${map.name}} = require('${relativePath}')
-describe(${map.description}, function(){
+describe(`${map.description}`, function(){
     expect(${map.name}(${map.params.join(',')})).toBe(${map.return})
 })
 `
