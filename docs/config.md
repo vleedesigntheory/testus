@@ -1,6 +1,6 @@
 # config
 
-配置文档
+## 配置文档
 
 ```js
 module.exports = {
@@ -23,5 +23,27 @@ module.exports = {
     plugins: [
         
     ], // 插件
+}
+```
+
+## 注释
+
+```js
+/**
+ * @testus 
+ * @name sum
+ * @description 测试sum函数
+ * @param a 1
+ * @param b 2
+ * @return 3
+ * @testus
+ */
+const sum = (a,b) => a+b;
+
+/**
+ * @end
+ */
+module.exports = {
+    sum
 }
 ```

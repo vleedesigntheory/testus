@@ -58,6 +58,42 @@ module.exports = {
 }
 ```
 
+## Notation
+
+If you want to generate a test file related to your code, you'd better to write a notation in your code. We cite an instance like this:
+
+```js
+/**
+ * @testus 
+ * @name sum
+ * @description test sum function
+ * @param a 1
+ * @param b 2
+ * @return 3
+ * @testus
+ */
+const sum = (a,b) => a+b;
+
+/**
+ * @end
+ */
+module.exports = {
+    sum
+}
+```
+
+we can parse `@testus` from your code, which you must use `@testus` closing your notation that can be filtered in our platform. More importantly, you have to write an `@end` to let us know what you want to export, which now only support Common JS Module.
+
+|Notation|Closing|Description|
+|:-:|:-:|:-:|
+|@testus|yes|offer a scope that need to parse|
+|@name|no|an export refer which you want to test|
+|@description|no|an description which you want to describe|
+|@param|no|a param which you want to input in your function or sth|
+|@return|no|a return which you want to return in your function or sth|
+|@end|no|offer a `module.exports`|
+
+
 ## Plugins
 
 |Project|Description|
@@ -68,7 +104,11 @@ module.exports = {
 
 ## Document
 
-TODO
+- [Config](./docs/config.md)
+- [Core](./docs/core.md)
+- [Testus-Plugin-Jasmine](./docs/testus-plugin-jasmine.md)
+- [Testus-Plugin-Jest](./docs/testus-plugin-jest.md)
+- [Testus-Plugin-Karma](./docs/testus-plugin-karma.md)
 
 ## License
 
