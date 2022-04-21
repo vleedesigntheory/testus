@@ -2,8 +2,6 @@
 
 <h2 align="center">TestUS</h2>
 
-<hr/>
-
 ## Introduction
 
 > A Test Kit for Vee
@@ -104,6 +102,7 @@ we can parse `@testus` from your code, which you must use `@testus` closing your
 
 ## Document
 
+- [The Practice of building TestUS In the Front End](https://vleedesigntheory.github.io/tech/front/testus20220420.html)
 - [Config](./docs/config.md)
 - [Core](./docs/core.md)
 - [Testus-Plugin-Jasmine](./docs/testus-plugin-jasmine.md)
